@@ -85,4 +85,6 @@ Node* llfilter(Node* head, Comp pred)
 
 }
 
+void pivotNode(Node *&head, Node *&smaller, Node *&larger, int pivot);
+
 #endif
