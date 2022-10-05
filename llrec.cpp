@@ -18,25 +18,30 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
 void pivotNode(Node *&head, Node *&smaller, Node *&larger, int pivot)
 {
     Node *tmp;
-    if (head == NULL) {
+    std::cout << "---" << std::endl;
+    if (head == NULL)
         return;
+
+    // @condition Make sure to equalize the pointer positions at the end
+    if(head->next == NULL) {
+        if(head->val <= pivot) {
+            larger = larger->next;
+        } else {
+            smaller = smaller->next;
+        }
     }
+
+    // @condition Compare value against pivot and switch accordingly
     if (head->val <= pivot)
     {
-        if (head->next != NULL)
-        {
-            tmp = head->next;
-            smaller = head;
-            pivotNode(head->next, smaller->next,  larger, pivot);
-        }
+        smaller = head;
+        head = head->next;
+        pivotNode(head, smaller->next, larger, pivot);
     }
     else
     {
-        if (head->next != NULL)
-        {
-            tmp = head->next;
-            larger = head;
-            pivotNode(head->next, smaller,  larger->next, pivot);
-        }
+        larger = head;
+        head = head->next;
+        pivotNode(head, smaller, larger->next, pivot);
     }
 }
