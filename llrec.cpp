@@ -18,7 +18,6 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
 void pivotNode(Node *&head, Node *&smaller, Node *&larger, int pivot)
 {
     Node *tmp;
-    std::cout << "---" << std::endl;
     if (head == NULL)
         return;
 
