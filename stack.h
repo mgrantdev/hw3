@@ -76,7 +76,6 @@ const T &Stack<T>::top() const
     {
         // @condition If stack is empty, throw error
         throw std::underflow_error("Stack Underflow Error dring top()");
-        return 0;
     }
     else
     {
