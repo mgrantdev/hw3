@@ -14,48 +14,51 @@ using namespace std;
  *  Pointer to the linked list (or NULL if empty or the
  *  file is invalid)
  */
-Node* readList(const char* filename);
+Node *readList(const char *filename);
 
 /**
  * Prints the integers in a linked list pointed to
  * by head.
  */
-void print(Node* head);
+void print(Node *head);
 
 /**
  * Deallocates the linked list nodes
  */
-void dealloc(Node* head);
+void dealloc(Node *head);
 
-
-Node* readList(const char* filename)
+Node *readList(const char *filename)
 {
-    Node* h = NULL;
+    Node *h = NULL;
     ifstream ifile(filename);
     int v;
-    if( ! (ifile >> v) ) return h;
+    if (!(ifile >> v))
+        return h;
     h = new Node(v, NULL);
     Node *t = h;
-    while ( ifile >> v ) {
+    while (ifile >> v)
+    {
         t->next = new Node(v, NULL);
         t = t->next;
     }
     return h;
 }
 
-void print(Node* head)
+void print(Node *head)
 {
-    while(head) {
+    while (head)
+    {
         cout << head->val << " ";
         head = head->next;
     }
     cout << endl;
 }
 
-void dealloc(Node* head)
+void dealloc(Node *head)
 {
-    Node* temp;
-    while(head) {
+    Node *temp;
+    while (head)
+    {
         temp = head->next;
         delete head;
         head = temp;
@@ -67,13 +70,10 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
-
-
-
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         cout << "Please provide an input file" << endl;
         return 1;
     }
@@ -81,16 +81,38 @@ int main(int argc, char* argv[])
     // -----------------------------------------------
     // Feel free to update any code below this point
     // -----------------------------------------------
-    Node* head = readList(argv[1]);
+    Node *head = readList(argv[1]);
     cout << "Original list: ";
     print(head);
 
+    // Test functors
+    struct isNeg
+    {
+        bool operator()(int x) { return x < 0; }
+    };
+    struct isEven
+    {
+        bool operator()(int x) { return x % 2 == 0; }
+    };
+    isNeg negativeFilter;
+    isEven evensFilter;
+
     // Test out your linked list code
-    Node* smaller;
-    Node* larger;
-    llpivot(head, smaller, larger,0);
+    Node *smaller;
+    Node *larger;
+    llpivot(head, smaller, larger, 0);
+    cout << "Pivot Tests: " << endl;
+    print(smaller);
     print(larger);
+    print(head);
+
+    cout << "Filter Tests: " << endl;
+    smaller = llfilter(smaller, evensFilter);
+    print(smaller);
+    print(larger);
+    dealloc(smaller);
+    dealloc(larger);
+    dealloc(head);
 
     return 0;
-
 }
