@@ -8,3 +8,4 @@ logicsim/circuit.o
 logicsim/gate.o
 logicsim/wire.o
 logicsim/logicsim.o
+logicsim/logicsim
