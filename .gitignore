@@ -3,3 +3,8 @@ test.txt
 a.out
 .DS_Store
 heap_test/
+logicsim/circuit.h
+logicsim/circuit.o
+logicsim/gate.o
+logicsim/wire.o
+logicsim/logicsim.o
